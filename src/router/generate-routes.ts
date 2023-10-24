@@ -161,8 +161,9 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
   }
 
   // Views
-  if (components[currentPath]) {
-    return components[currentPath]
+  const pagePath = './views' + currentPath + '.vue'
+  if (components[pagePath]) {
+    return components[pagePath].default
   }
 
   // Matching
@@ -232,15 +233,16 @@ export const generateLayoutRouter: GenerateLayoutRouter = contexts => {
  * 业务页面路由生成器
  */
 export const generateViewsRouter: GenerateViewsRouter = contexts => {
+  console.log('generateViewsRouter', contexts)
   const routerComponents: Record<string, () => Promise<any>> = {}
   const replaceKeyRegex = /^.*\/src\/views(\/([^/]+\/?)+)\.(tsx|vue)$/
-  const ignoreKeyRegex = /^_.*|^\..*/
+  // const ignoreKeyRegex = /^_.*|^\..*/
 
   for (const [path, value] of Object.entries(contexts)) {
     const key = path.replace(replaceKeyRegex, '$1')
-    const ignore = ignoreKeyRegex.test(key)
+    // const ignore = ignoreKeyRegex.test(key)
 
-    if (!ignore && !routerComponents[key]) {
+    if (!routerComponents[key]) {
       routerComponents[key] = value
     }
   }
