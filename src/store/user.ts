@@ -118,7 +118,7 @@ export default defineStore('user', () => {
 
   const getUserInfo = async() => {
     return new Promise(resolve => {
-      const result = mockUserInfo
+      const result: any = mockUserInfo
 
       userInfo.value = result || userInfo.value
       userRole.value = result.role || userRole.value

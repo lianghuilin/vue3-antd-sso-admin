@@ -25,7 +25,6 @@ const whiteRouteList = ['/login/Login', '/login/LoginCallback']
  */
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
-  console.log(to, from)
 
   const localToken = localStorage.getItem('SSO-TOKEN')
   const userStore = useUserStore()
@@ -46,15 +45,12 @@ router.beforeEach(async(to, from, next) => {
       return
     }
 
-    console.log('51', JSON.stringify(userRole))
     if (!userRole.permissions || userRole.permissions.length === 0) {
       try {
         await userStore.getUserInfo()
         await routerStore.generateRouter({}, routerComponents)
 
-        console.log('56', router.getRoutes())
         const dynamicRoutes = toRaw(routerStore.dynamicRoutes)
-        console.log(61, dynamicRoutes)
         const visitRedirect = from.query.redirect || to.path
         const pathRedirect = typeof visitRedirect === 'string'
           ? decodeURIComponent(visitRedirect)
@@ -63,9 +59,7 @@ router.beforeEach(async(to, from, next) => {
         for (const route of dynamicRoutes) {
           router.addRoute(route as any)
         }
-        console.log('68', router.getRoutes())
 
-        console.log('70', to, pathRedirect)
         to.path === pathRedirect
           ? next({ ...to, replace: true })
           : next({ path: pathRedirect })
@@ -87,8 +81,6 @@ router.beforeEach(async(to, from, next) => {
       }
       return
     }
-    console.log(95, JSON.stringify(router.getRoutes()))
-    console.log(96, to.path)
     return next()
   }
 

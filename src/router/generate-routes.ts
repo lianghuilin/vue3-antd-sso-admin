@@ -1,6 +1,7 @@
 // import { requestBuilder } from '@/utils/common'
 import defaultRouter from '@/configure/defaultRouter'
 // import * as userApi from '@/api/user'
+import statcRouter from '@/configure/staticRouter'
 
 import type {
   Menu,
@@ -15,7 +16,7 @@ import type {
   GenerateViewsRouter
 } from './generate-typing'
 
-const routerResult = [{ sort: 1000000, id: '27245863256459422', name: 'system', path: '', parentId: '0', component: 'PageView', redirect: '/system/OrganizeManage', meta: { icon: 'CodepenOutlined', title: '系统管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000100, id: '1127282136000102507', name: 'OrganizeManage', path: '/system/OrganizeManage', parentId: '27245863256459422', component: 'OrganizeManage', redirect: '', meta: { icon: '', title: '组织管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000200, id: '27245863256459445', name: 'ResourceManage', path: '/system/ResourceManage', parentId: '27245863256459422', component: 'ResourceManage', redirect: '', meta: { icon: '', title: '资源管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000300, id: '27245863256459495', name: 'RoleManage', path: '/system/RoleManage', parentId: '27245863256459422', component: 'RoleManage', redirect: '', meta: { icon: '', title: '角色管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000400, id: '1127282136000102579', name: 'UserManage', path: '/system/UserManage', parentId: '27245863256459422', component: 'UserManage', redirect: '', meta: { icon: '', title: '用户管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }]
+const routerResult = statcRouter
 
 /**
  * 转换树形结构
@@ -147,7 +148,7 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
   const parentPath = parent.path?.replace(regex, '') || ''
   const tempViewPath = itemPath?.startsWith('/') ? itemPath : parentPath + '/' + itemPath
   const currentPath = tempViewPath.replace(/^\/*([^/].*)/, '/$1')
-  const importrMaps = import.meta.glob('@/views/**/*.vue')
+  const importrMaps = import.meta.glob('../views/**/*.vue')
 
   // Component
   if (String(item.component) !== item.component) {
@@ -186,7 +187,7 @@ export const generateDynamicRouter: GenerateDynamicRouter = (params, components)
 
   return new Promise(resolve => {
     // 创建节点组
-    const result = routerResult
+    const result: any[] = routerResult
     const rootRoute = defaultRouter.rootRoute
     const externalRoute = defaultRouter.externalRoute
     const notFoundRoutes = defaultRouter.notFoundRoutes
