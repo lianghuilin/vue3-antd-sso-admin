@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia'
 import { Ref, ref, computed } from 'vue'
-import { requestBuilder } from '@/utils/common'
 import defaultAvatar from '@/assets/avatar/default_avatar.png?url'
 import useTagStore from '@/store/tag'
 import * as authApi from '@/api/auth'
-import * as userApi from '@/api/user'
 
 // 用户角色
 interface UserRole {
@@ -54,22 +52,20 @@ export default defineStore('user', () => {
 
   const ssoAuth = async(redirectUrl: string) => {
     return authApi.ssoAuth<AxiosResponseResult<any>>(redirectUrl).then(res => {
-      console.log('authApi.ssoAuth', res)
       if (res.code === 0) {
         window.location.href = res.result
       }
     })
   }
 
+  const setToken = (tok: string) => {
+    token.value = tok
+  }
+
   const login = async(ssoTicket: string) => {
     if (tagStore) {
       tagStore.delAllTags()
     }
-
-    // interface CustomResult {
-    //   token: string;
-    //   data: UserInfo;
-    // }
 
     return authApi.login<AxiosResponseResult<any>>(ssoTicket).then(res => {
       console.log('authApi.login', res)
@@ -93,12 +89,12 @@ export default defineStore('user', () => {
     })
   }
 
-  const logout = async(redirectUrl: string) => {
+  const logout = async() => {
     if (tagStore) {
       tagStore.delAllTags()
     }
 
-    return authApi.logout<AxiosResponseResult>({ redirectUrl, token: token.value }).then(res => {
+    return authApi.logout<AxiosResponseResult>({ redirectUrl: 'http://vscreen.12301.io/#/login/LoginCallback', token: token.value }).then(res => {
       if (res.code !== 0) {
         return Promise.reject(res)
       } else {
@@ -118,36 +114,34 @@ export default defineStore('user', () => {
     })
   }
 
-  const getUserInfo = async(params: Record<string, any>) => {
-    return userApi.getUserInfo<AxiosResponseResult<UserInfo>>(requestBuilder('getInfo', params)).then(res => {
-      if (res.code !== 0) {
-        return Promise.reject(new Error(res.message || '获取用户失败!'))
-      }
-
-      const result = res.result
-
-      userInfo.value = result || userInfo.value
-      userRole.value = result.role || userRole.value
-      userNo.value = result.userNo || userNo.value
-      userName.value = result.userName || userName.value
-      avatar.value = result.avatar || avatar.value
-      orgId.value = result.orgId || orgId.value
-      orgName.value = result.orgName || orgName.value
-      deptId.value = result.deptId || deptId.value
-      deptName.value = result.deptName || deptName.value
-      dataFlag.value = result.dataFlag || dataFlag.value
-
-      if (userRole.value && userRole.value.permissions) {
-        for (const permission of userRole.value.permissions) {
-          if (permission.actionEntitySet) {
-            permission.actionList = permission.actionEntitySet.map(action => action.action)
-          }
+  const getUserInfo = async() => {
+    userName.value = 'admin'
+    avatar.value = ''
+    const resultRole: any = {
+      permissions: [
+        {
+          roleId: '27442970747734159',
+          permissionId: 'OrganizeManage',
+          actionEntitySet: [
+            { action: 'add', defaultCheck: false, describe: '新增' },
+            { action: 'del', defaultCheck: false, describe: '删除' },
+            { action: 'edit', defaultCheck: false, describe: '修改' },
+            { action: 'query', defaultCheck: false, describe: '查询' }
+          ]
         }
-        userRole.value.permissionList = userRole.value.permissions.map(permission => permission.permissionId)
-      }
+      ]
+    }
+    userRole.value = resultRole
 
-      return res
-    })
+    if (userRole.value && userRole.value.permissions) {
+      for (const permission of userRole.value.permissions) {
+        if (permission.actionEntitySet) {
+          permission.actionList = permission.actionEntitySet.map(action => action.action)
+        }
+      }
+      userRole.value.permissionList = userRole.value.permissions.map(permission => permission.permissionId)
+    }
+    console.log(180, userRole.value)
   }
 
   return {
@@ -165,6 +159,7 @@ export default defineStore('user', () => {
     userRole,
     nickname,
 
+    setToken,
     ssoAuth,
     login,
     logout,
