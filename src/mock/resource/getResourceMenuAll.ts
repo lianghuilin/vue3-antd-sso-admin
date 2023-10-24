@@ -14,7 +14,7 @@ util.worker.use(
     const printer = await util.printer(tag)
 
     const result = {
-      code: '0000',
+      code: 0,
       message: null,
       result: {
         nodes: [
@@ -108,10 +108,7 @@ util.worker.use(
                 label: '系统管理',
                 value: '27245863256459422',
                 children: [
-                  { children: [], label: '组织管理', value: '1127282136000102507' },
-                  { children: [], label: '资源管理', value: '27245863256459445' },
-                  { children: [], label: '角色管理', value: '27245863256459495' },
-                  { children: [], label: '用户管理', value: '1127282136000102579' }
+                  { children: [], label: '组织管理', value: '1127282136000102507' }
                 ]
               }
             ]

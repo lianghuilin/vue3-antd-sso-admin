@@ -18,7 +18,7 @@ util.worker.use(
     switch (body.param.parentId) {
       case '1127282136000102507': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -73,7 +73,7 @@ util.worker.use(
       }
       case '27245863256459445': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -108,7 +108,7 @@ util.worker.use(
       }
       case '27245863256459495': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -163,7 +163,7 @@ util.worker.use(
       }
       case '1127282136000102579': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -218,7 +218,7 @@ util.worker.use(
       }
       case '1127282136000102508': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -243,7 +243,7 @@ util.worker.use(
       }
       default: {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [],

@@ -18,7 +18,7 @@ util.worker.use(
     switch (body && body.id) {
       case 'orgTree': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: [
             {
@@ -341,7 +341,7 @@ util.worker.use(
       }
       default: {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: []
         }

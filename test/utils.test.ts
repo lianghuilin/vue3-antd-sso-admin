@@ -31,14 +31,14 @@ describe('@utils/request.ts', () => {
     rest.post('http://api.test.com/updateUserInfo', (req, res, ctx) => {
       return res(
         ctx.status(200),
-        ctx.json({ code: '0000', message: null, result: 'success' })
+        ctx.json({ code: 0, message: null, result: 'success' })
       )
     }),
 
     rest.get('http://api.test.com/getUserInfo', (req, res, ctx) => {
       return res(
         ctx.status(200),
-        ctx.json({ code: '0000', message: null, result: { name: 'admin', email: 'admin@gmail.com' } })
+        ctx.json({ code: 0, message: null, result: { name: 'admin', email: 'admin@gmail.com' } })
       )
     })
   )
@@ -49,13 +49,13 @@ describe('@utils/request.ts', () => {
 
   it('Check request.post - eg. updateUserInfo', async() => {
     const options = { url: 'http://api.test.com/updateUserInfo', method: 'post' }
-    const response = { code: '0000', message: null, result: 'success' }
+    const response = { code: 0, message: null, result: 'success' }
     await expect(request(options)).resolves.toMatchObject(response)
   })
 
   it('Check request.get - eg. getUserInfo', async() => {
     const options = { url: 'http://api.test.com/getUserInfo', method: 'get' }
-    const response = { code: '0000', message: null, result: { name: 'admin', email: 'admin@gmail.com' } }
+    const response = { code: 0, message: null, result: { name: 'admin', email: 'admin@gmail.com' } }
     await expect(request(options)).resolves.toMatchObject(response)
   })
 

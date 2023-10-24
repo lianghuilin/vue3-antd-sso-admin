@@ -25,7 +25,7 @@ util.worker.use(
 
     if (body.param.username === 'admin' && body.param.password === '25d55ad283aa400af464c76d713c07ad') {
       result = {
-        code: '0000',
+        code: 0,
         message: null,
         result: {
           data: {

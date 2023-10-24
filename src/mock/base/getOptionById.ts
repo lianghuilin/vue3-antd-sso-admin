@@ -18,7 +18,7 @@ util.worker.use(
     switch (body && body.id) {
       case 'dept': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: [
             { label: '公司部', parentId: '101.100.131', value: '1126534161135795126' },
@@ -88,7 +88,7 @@ util.worker.use(
       }
       default: {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: []
         }

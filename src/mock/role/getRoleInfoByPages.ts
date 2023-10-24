@@ -14,7 +14,7 @@ util.worker.use(
     const printer = await util.printer(tag)
 
     const result = {
-      code: '0000',
+      code: 0,
       message: null,
       result: {
         data: [

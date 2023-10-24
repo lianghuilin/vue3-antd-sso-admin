@@ -18,7 +18,7 @@ util.worker.use(
     switch (body && body.param && body.param.orgId) {
       case '1': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -53,7 +53,7 @@ util.worker.use(
       }
       case '101.100': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -98,7 +98,7 @@ util.worker.use(
       }
       case '101.100.131': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -219,7 +219,7 @@ util.worker.use(
       }
       case '101.100.138': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [
@@ -244,7 +244,7 @@ util.worker.use(
       }
       default: {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: {
             data: [],

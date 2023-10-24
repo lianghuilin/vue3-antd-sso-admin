@@ -18,7 +18,7 @@ util.worker.use(
     switch (body && body.param && body.param.orgId) {
       case '0': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: [
             {
@@ -34,7 +34,7 @@ util.worker.use(
       }
       case '1': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: [
             {
@@ -50,7 +50,7 @@ util.worker.use(
       }
       case '101.100': {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: [
             {
@@ -73,7 +73,7 @@ util.worker.use(
       }
       default: {
         result = {
-          code: '0000',
+          code: 0,
           message: null,
           result: []
         }
