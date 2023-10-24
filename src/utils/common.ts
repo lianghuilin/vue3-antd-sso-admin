@@ -12,6 +12,24 @@ export type TakeLabelByKey = (tree: Array<LabelValueChildrenTree>, key: LabelVal
 export type RequestBuilder = (action?: string, param?: Record<string, any>, pageNo?: number | null, pageSize?: number | null, options?: AxiosRequestOptions) => AxiosRequestResult
 
 /**
+ * 获取URL参数
+ * @param {*} name // hash模式下获取不到location.search,所以用此方法
+ */
+export function getUrlQueryParams(name: string): string | null {
+  const url = window.location.href
+  const index = url.indexOf('?')
+  if (index < 0) return null
+  const resetUrl = url.substring(index + 1)
+  const urlParams: any = {}
+  const resetUrlArr = resetUrl.split('&')
+  resetUrlArr.forEach(urls => {
+    const [key, value] = urls.split('=')
+    urlParams[key] = value
+  })
+  return urlParams[name]
+}
+
+/**
  * 数值精度 Fix
  */
 export const takeFixed: TakeFixed = (num, digit = NaN) => {

@@ -1,4 +1,5 @@
 import { request } from '@/utils/request'
+import { getUrlQueryParams } from '@/utils/common'
 
 /**
  * login 系统登录
@@ -6,23 +7,48 @@ import { request } from '@/utils/request'
  * modifyPassword 修改密码
  */
 const api = {
-  login: '/auth/login',
-  logout: '/auth/logout',
+  ssoAuth: '/authorize/getSsoUrl',
+  login: '/authorize/getUserInfo',
+  logout: '/authorize/logout',
   modifyPassword: '/auth/modifyPassword'
 }
 
-export function login<T = any, D = any>(data: D) {
+/**
+ * 获取URL的SSO token参数
+ * @returns
+ */
+export function getSSOTicket() {
+  const urlParam: string = getUrlQueryParams('token') || ''
+  const flagIndex = urlParam ? urlParam.lastIndexOf('#/') : -1
+  let ticket = null
+  if (flagIndex !== -1) ticket = urlParam ? urlParam.substring(0, flagIndex) : null
+  else ticket = urlParam
+
+  return ticket
+}
+
+export function ssoAuth<T = any, D = any>(redirectUrl: string) {
+  return request<T, D>({
+    url: api.ssoAuth,
+    method: 'get',
+    params: {
+      redirectUrl
+    }
+  })
+}
+
+export function login<T = any, D = any>(token: string) {
   return request<T, D>({
     url: api.login,
-    method: 'post',
-    data: data
+    method: 'get',
+    params: { token }
   })
 }
 
 export function logout<T = any, D = any>(data: D) {
   return request<T, D>({
     url: api.logout,
-    method: 'post',
+    method: 'get',
     data: data
   })
 }

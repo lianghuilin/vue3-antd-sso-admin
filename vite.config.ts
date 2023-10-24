@@ -39,10 +39,15 @@ export default defineConfig(({ mode }) => {
     },
 
     server: {
-      port: 8000,
+      host: '0.0.0.0',
+      hmr: {
+        host: '192.168.150.167',
+        port: 80
+      },
+      port: 4000,
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:8888/api',
+          target: 'http://192.168.150.61:8088/api',
           rewrite: path => path.replace(/^\/api/, ''),
           changeOrigin: true
         }
@@ -97,14 +102,14 @@ export default defineConfig(({ mode }) => {
     ],
 
     build: {
-      minify: 'terser',
-      sourcemap: false,
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true
-        }
-      },
+      // minify: 'terser',
+      // sourcemap: false,
+      // terserOptions: {
+      //   compress: {
+      //     drop_console: true,
+      //     drop_debugger: true
+      //   }
+      // },
       rollupOptions: {
         output: {
           chunkFileNames: 'static/js/[name]-[hash].js',

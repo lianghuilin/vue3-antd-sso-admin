@@ -175,7 +175,7 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
 export const generateDynamicRouter: GenerateDynamicRouter = (params, components) => {
   return userApi.getUserMenu<AxiosResponseResult<Menu[]>>(requestBuilder('generateRoutes', params, 0, 0)).then(
     res => {
-      if (res.code !== '0000') {
+      if (res.code !== 0) {
         return Promise.reject(res)
       }
 

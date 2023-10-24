@@ -27,6 +27,6 @@ declare type AxiosRequestResult<T = any> = {
  */
 declare type AxiosResponseResult<T = any> = {
   result: T;
-  code: string | null | undefined;
+  code: number;
   message: string | null | undefined;
 }

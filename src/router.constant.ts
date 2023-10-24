@@ -1,6 +1,7 @@
 import UserLayout from '@/layout/UserLayout'
 import defaultRouter from '@/configure/defaultRouter'
 import type { Route } from '@/router/generate-typing'
+// import LoginCallBack from '@/views/login/LoginCallBack.vue'
 
 interface defineRoute extends Route { sort?: number; }
 
@@ -13,9 +14,22 @@ baseRoutes.push(
     name: 'index',
     redirect: '/system/OrganizeManage'
   },
+  // {
+  //   path: '/loginCallback',
+  //   // redirect: '/login/loginCallback',
+  //   component: UserLayout,
+  //   children: [
+  //     {
+  //       path: 'LoginCallback',
+  //       name: 'LoginCallback',
+  //       component: () => import(`@/views/login/LoginCallback.vue`),
+  //       meta: { title: '系统授权' }
+  //     }
+  //   ]
+  // },
   {
     path: '/login',
-    redirect: '/login/Login',
+    // redirect: '/login/Login',
     component: UserLayout,
     children: [
       {
@@ -23,6 +37,12 @@ baseRoutes.push(
         name: 'Login',
         component: () => import(`@/views/login/Login.vue`),
         meta: { title: '系统登录' }
+      },
+      {
+        path: 'LoginCallback',
+        name: 'LoginCallback',
+        component: () => import(`@/views/login/LoginCallback.vue`),
+        meta: { title: '系统授权' }
       }
     ]
   }

@@ -52,64 +52,75 @@ export default defineStore('user', () => {
   const nickname = computed(() => userName.value)
   const tagStore = useTagStore()
 
-  const login = async(params: Record<string, any>) => {
+  const ssoAuth = async(redirectUrl: string) => {
+    return authApi.ssoAuth<AxiosResponseResult<any>>(redirectUrl).then(res => {
+      console.log('authApi.ssoAuth', res)
+      if (res.code === 0) {
+        window.location.href = res.result
+      }
+    })
+  }
+
+  const login = async(ssoTicket: string) => {
     if (tagStore) {
       tagStore.delAllTags()
     }
 
-    interface CustomResult {
-      token: string;
-      data: UserInfo;
-    }
+    // interface CustomResult {
+    //   token: string;
+    //   data: UserInfo;
+    // }
 
-    return authApi.login<AxiosResponseResult<CustomResult>>(requestBuilder('login', params)).then(res => {
-      if (res.code !== '0000') {
+    return authApi.login<AxiosResponseResult<any>>(ssoTicket).then(res => {
+      console.log('authApi.login', res)
+      const { code, result } = res
+      if (code !== 0) {
         return Promise.reject(res)
       }
 
-      const result = res.result || {}
-      const data = result.data
-
+      localStorage.setItem('SSO-TOKEN', result.token)
       token.value = result.token
-      userNo.value = data?.userNo || ''
-      userName.value = data?.userName || ''
-      mobilePhone.value = data?.mobilePhone || ''
-      orgId.value = data?.orgId || ''
-      orgName.value = data?.orgName || ''
-      deptId.value = data?.deptId || ''
-      deptName.value = data?.deptName || ''
+      avatar.value = result.avatar || avatar.value
+      userNo.value = ''
+      userName.value = result.nick || userName.value
+      mobilePhone.value = ''
+      orgId.value = ''
+      orgName.value = ''
+      deptId.value = ''
+      deptName.value = ''
 
       return res
     })
   }
 
-  const logout = async(params: Record<string, any> = {}) => {
+  const logout = async(redirectUrl: string) => {
     if (tagStore) {
       tagStore.delAllTags()
     }
 
-    token.value = ''
-    userNo.value = ''
-    userName.value = ''
-    orgId.value = ''
-    orgName.value = ''
-    deptId.value = ''
-    deptName.value = ''
-    dataFlag.value = ''
-    avatar.value = defaultAvatar
-    userInfo.value = {} as UserInfo
-    userRole.value = {} as UserRole
-
-    return authApi.logout<AxiosResponseResult>(params).then(res => {
-      if (res.code !== '0000') {
+    return authApi.logout<AxiosResponseResult>({ redirectUrl, token: token.value }).then(res => {
+      if (res.code !== 0) {
         return Promise.reject(res)
+      } else {
+        token.value = ''
+        userNo.value = ''
+        userName.value = ''
+        orgId.value = ''
+        orgName.value = ''
+        deptId.value = ''
+        deptName.value = ''
+        dataFlag.value = ''
+        avatar.value = defaultAvatar
+        userInfo.value = {} as UserInfo
+        userRole.value = {} as UserRole
+        // window.location.href = res.result
       }
     })
   }
 
   const getUserInfo = async(params: Record<string, any>) => {
     return userApi.getUserInfo<AxiosResponseResult<UserInfo>>(requestBuilder('getInfo', params)).then(res => {
-      if (res.code !== '0000') {
+      if (res.code !== 0) {
         return Promise.reject(new Error(res.message || '获取用户失败!'))
       }
 
@@ -154,6 +165,7 @@ export default defineStore('user', () => {
     userRole,
     nickname,
 
+    ssoAuth,
     login,
     logout,
     getUserInfo
