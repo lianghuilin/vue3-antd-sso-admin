@@ -15,59 +15,7 @@ import type {
   GenerateViewsRouter
 } from './generate-typing'
 
-const routeNodes = {
-  nodes: [
-    {
-      sort: 1000000,
-      path: '',
-      icon: 'CodepenOutlined',
-      title: '系统管理',
-      redirect: '',
-      parentId: '0',
-      component: 'PageView',
-      id: '27245863256459422',
-      resourceId: '27245863256459422',
-      resourceName: 'system',
-      resourceType: 'm',
-      hideChildInMenu: 'N',
-      hideInMenu: 'N',
-      allowCache: 'Y',
-      activity: 'Y'
-    },
-    {
-      sort: 1000100,
-      path: '/system/OrganizeManage',
-      icon: '',
-      title: '组织管理',
-      redirect: '',
-      parentId: '27245863256459422',
-      component: 'OrganizeManage',
-      id: '1127282136000102507',
-      resourceId: '1127282136000102507',
-      resourceName: 'OrganizeManage',
-      resourceType: 'm',
-      hideChildInMenu: 'N',
-      hideInMenu: 'N',
-      allowCache: 'Y',
-      activity: 'Y'
-    }
-  ],
-  treeNodes: [
-    {
-      label: '根目录',
-      value: '0',
-      children: [
-        {
-          label: '系统管理',
-          value: '27245863256459422',
-          children: [
-            { children: [], label: '组织管理', value: '1127282136000102507' }
-          ]
-        }
-      ]
-    }
-  ]
-}
+const routerResult = [{ sort: 1000000, id: '27245863256459422', name: 'system', path: '', parentId: '0', component: 'PageView', redirect: '/system/OrganizeManage', meta: { icon: 'CodepenOutlined', title: '系统管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000100, id: '1127282136000102507', name: 'OrganizeManage', path: '/system/OrganizeManage', parentId: '27245863256459422', component: 'OrganizeManage', redirect: '', meta: { icon: '', title: '组织管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000200, id: '27245863256459445', name: 'ResourceManage', path: '/system/ResourceManage', parentId: '27245863256459422', component: 'ResourceManage', redirect: '', meta: { icon: '', title: '资源管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000300, id: '27245863256459495', name: 'RoleManage', path: '/system/RoleManage', parentId: '27245863256459422', component: 'RoleManage', redirect: '', meta: { icon: '', title: '角色管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }, { sort: 1000400, id: '1127282136000102579', name: 'UserManage', path: '/system/UserManage', parentId: '27245863256459422', component: 'UserManage', redirect: '', meta: { icon: '', title: '用户管理', hideChildInMenu: 'N', hideInMenu: 'N', allowCache: 'Y' } }]
 
 /**
  * 转换树形结构
@@ -98,7 +46,7 @@ const listToTree: ListToTree = (list, chidren, parent) => {
  * 转换层级路由表
  */
 const treeToRoute: TreeToRoute = (trees, parent = {}, components = {}) => {
-  const routes = trees.map(item => {
+  return trees.map(item => {
     const {
       icon,
       title,
@@ -168,12 +116,9 @@ const treeToRoute: TreeToRoute = (trees, parent = {}, components = {}) => {
       currentRouter.meta.hideChildInMenu = true
     }
 
-    console.log(171, currentRouter)
     // 路由表
     return currentRouter
   })
-  console.log('175:', routes)
-  return routes
 }
 
 /**
@@ -186,8 +131,6 @@ export const generateDynamicPath: GenerateDynamicPath = (parent = {}, item = {})
   const itemPath = item.path?.replace(end, '')
   const parentPath = parent.path?.replace(end, '')
   const isUseMergePath = item.component === 'PageFrame' || !itemPath || false
-  console.log('186:generateDynamicPath', ' useMergePath:', isUseMergePath, ',parentPath:', parentPath, ', namePath:', namePath, ',itemPath:', itemPath)
-  console.log('187:', parent, item)
 
   return isUseMergePath && parentPath && namePath
     ? (parentPath + '/' + namePath).replace(start, '/$1')
@@ -206,9 +149,6 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
   const currentPath = tempViewPath.replace(/^\/*([^/].*)/, '/$1')
   const importrMaps = import.meta.glob('@/views/**/*.vue')
 
-  console.log('209:', 'itemPath:', itemPath, ', tempViewPath:', tempViewPath, ', currentPath:', currentPath)
-  console.log('210:', item)
-
   // Component
   if (String(item.component) !== item.component) {
     return item.component
@@ -216,13 +156,11 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
 
   // Layout
   if (components[item.component]) {
-    console.log('219, layout')
     return components[item.component]
   }
 
   // Views
   if (components[currentPath]) {
-    console.log('225, views')
     return components[currentPath]
   }
 
@@ -230,73 +168,44 @@ export const generateDynamicComponent: GenerateDynamicComponent = (parent = {}, 
   const viewSuffix = '.vue'
   const viewPrefix = `/src/views`
   const viewPartPath = currentPath.replace(/^\/+|\.vue$/gi, '')
-  console.log('234:', JSON.stringify(importrMaps))
-  console.log('235:', `${viewPrefix}/${viewPartPath}${viewSuffix}`)
-  const matchedView = importrMaps[`${viewPrefix}/${viewPartPath}${viewSuffix}`]
-  console.log('236:', matchedView)
-  return matchedView
-  // return importrMaps[`${viewPrefix}/${viewPartPath}${viewSuffix}`]
+  return importrMaps[`${viewPrefix}/${viewPartPath}${viewSuffix}`]
 }
 
 /**
  * 动态生成菜单
  */
-export const generateDynamicRouter: any = (params: any, components: any) => {
+export const generateDynamicRouter: GenerateDynamicRouter = (params, components) => {
   // return userApi.getUserMenu<AxiosResponseResult<Menu[]>>(requestBuilder('generateRoutes', params, 0, 0)).then(
   //   res => {
-  //     if (res.code !== 0) {
+  //     if (res.code !== '0000') {
   //       return Promise.reject(res)
   //     }
 
-  //     // 创建节点组
-  //     const result = res.result
-  //     const rootRoute = defaultRouter.rootRoute
-  //     const externalRoute = defaultRouter.externalRoute
-  //     const notFoundRoutes = defaultRouter.notFoundRoutes
-  //     const children = JSON.parse(JSON.stringify(rootRoute.children)) as Menu[]
-
-  //     // 生成树型数组
-  //     listToTree(result, children, { id: '0' })
-
-  //     // 生成路由表
-  //     const trees: Menu[] = [{ ...rootRoute, children }]
-  //     const routers = treeToRoute(trees, {}, components)
-
-  //     // 添加静态路由
-  //     routers[0].children?.unshift(externalRoute)
-  //     routers.push(...notFoundRoutes)
-
-  //     // 菜单路由
-  //     return routers
   //   }
   // )
-  console.log('311')
 
-  // 创建节点组
-  const result: any = routeNodes.nodes
-  const rootRoute = defaultRouter.rootRoute
-  const externalRoute = defaultRouter.externalRoute
-  const notFoundRoutes = defaultRouter.notFoundRoutes
-  const children = JSON.parse(JSON.stringify(rootRoute.children)) as Menu[]
-  console.log('319')
+  return new Promise(resolve => {
+    // 创建节点组
+    const result = routerResult
+    const rootRoute = defaultRouter.rootRoute
+    const externalRoute = defaultRouter.externalRoute
+    const notFoundRoutes = defaultRouter.notFoundRoutes
+    const children = JSON.parse(JSON.stringify(rootRoute.children)) as Menu[]
 
-  // 生成树型数组
-  listToTree(result, children, { id: '0' })
-  console.log(268, children)
+    // 生成树型数组
+    listToTree(result, children, { id: '0' })
 
-  // 生成路由表
-  const trees: Menu[] = [{ ...rootRoute, children }]
-  console.log(271, trees)
-  const routers = treeToRoute(trees, {}, components)
-  console.log(272, JSON.stringify(routers))
+    // 生成路由表
+    const trees: Menu[] = [{ ...rootRoute, children }]
+    const routers = treeToRoute(trees, {}, components)
 
-  // 添加静态路由
-  routers[0].children?.unshift(externalRoute)
-  routers.push(...notFoundRoutes)
+    // 添加静态路由
+    routers[0].children?.unshift(externalRoute)
+    routers.push(...notFoundRoutes)
 
-  console.log('334', routers)
-
-  return routers
+    // 菜单路由
+    resolve(routers)
+  })
 }
 
 /**

@@ -31,6 +31,8 @@ interface UserInfo {
   activity?: string | null;
 }
 
+const mockUserInfo = { userNo: '182588xxx88', userName: 'admin', mobilePhone: '182588xxx88', postName: '系统管理', orgId: '101.100.131', orgName: '北仑网安通信有限公司', deptName: '软件部', deptId: '1126534161135795132', dataFlag: '2', activity: 'Y', role: { permissions: [{ roleId: '27442970747734159', permissionId: 'ResourceManage', actionEntitySet: [{ action: 'add', defaultCheck: false, describe: '新增' }, { action: 'del', defaultCheck: false, describe: '删除' }] }, { roleId: '27442970747734159', permissionId: 'RoleManage', actionEntitySet: [{ action: 'add', defaultCheck: false, describe: '新增' }, { action: 'del', defaultCheck: false, describe: '删除' }, { action: 'edit', defaultCheck: false, describe: '修改' }, { action: 'query', defaultCheck: false, describe: '查询' }] }, { roleId: '27442970747734159', permissionId: 'OrganizeManage', actionEntitySet: [{ action: 'add', defaultCheck: false, describe: '新增' }, { action: 'del', defaultCheck: false, describe: '删除' }, { action: 'edit', defaultCheck: false, describe: '修改' }, { action: 'query', defaultCheck: false, describe: '查询' }] }, { roleId: '27442970747734159', permissionId: 'UserManage', actionEntitySet: [{ action: 'add', defaultCheck: false, describe: '新增' }, { action: 'del', defaultCheck: false, describe: '删除' }, { action: 'edit', defaultCheck: false, describe: '修改' }, { action: 'query', defaultCheck: false, describe: '查询' }] }] } }
+
 /**
  * 用户管理
  */
@@ -115,33 +117,31 @@ export default defineStore('user', () => {
   }
 
   const getUserInfo = async() => {
-    userName.value = 'admin'
-    avatar.value = ''
-    const resultRole: any = {
-      permissions: [
-        {
-          roleId: '27442970747734159',
-          permissionId: 'OrganizeManage',
-          actionEntitySet: [
-            { action: 'add', defaultCheck: false, describe: '新增' },
-            { action: 'del', defaultCheck: false, describe: '删除' },
-            { action: 'edit', defaultCheck: false, describe: '修改' },
-            { action: 'query', defaultCheck: false, describe: '查询' }
-          ]
-        }
-      ]
-    }
-    userRole.value = resultRole
+    return new Promise(resolve => {
+      const result = mockUserInfo
 
-    if (userRole.value && userRole.value.permissions) {
-      for (const permission of userRole.value.permissions) {
-        if (permission.actionEntitySet) {
-          permission.actionList = permission.actionEntitySet.map(action => action.action)
+      userInfo.value = result || userInfo.value
+      userRole.value = result.role || userRole.value
+      userNo.value = result.userNo || userNo.value
+      userName.value = result.userName || userName.value
+      avatar.value = result.avatar || avatar.value
+      orgId.value = result.orgId || orgId.value
+      orgName.value = result.orgName || orgName.value
+      deptId.value = result.deptId || deptId.value
+      deptName.value = result.deptName || deptName.value
+      dataFlag.value = result.dataFlag || dataFlag.value
+
+      if (userRole.value && userRole.value.permissions) {
+        for (const permission of userRole.value.permissions) {
+          if (permission.actionEntitySet) {
+            permission.actionList = permission.actionEntitySet.map(action => action.action)
+          }
         }
+        userRole.value.permissionList = userRole.value.permissions.map(permission => permission.permissionId)
       }
-      userRole.value.permissionList = userRole.value.permissions.map(permission => permission.permissionId)
-    }
-    console.log(180, userRole.value)
+
+      resolve(mockUserInfo)
+    })
   }
 
   return {
