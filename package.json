@@ -59,7 +59,6 @@
     "darkreader": "^4.9.67",
     "eslint": "^8.51.0",
     "eslint-plugin-vue": "^9.17.0",
-    "husky": "^8.0.3",
     "jsdom": "^22.1.0",
     "less": "^4.2.0",
     "lint-staged": "^15.0.1",
