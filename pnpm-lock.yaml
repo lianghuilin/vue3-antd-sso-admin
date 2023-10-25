@@ -20,6 +20,12 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  flex.css:
+    specifier: ^1.1.7
+    version: 1.1.7
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   md5:
     specifier: ^2.3.0
     version: 2.3.0
@@ -5150,6 +5156,10 @@ packages:
   /flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
+
+  /flex.css@1.1.7:
+    resolution: {integrity: sha512-CC7cco3WNCkfH69m6Wk9ems/6VQ5bbkPUAB5kbAglwmPpMTyiLehPMy3rn7qkU4VaFJhQD8rB6P5IRWnd+OMcw==}
+    dev: false
 
   /fn-name@2.0.1:
     resolution: {integrity: sha512-oIDB1rXf3BUnn00bh2jVM0byuqr94rBh6g7ZfdKcbmp1we2GQtPzKdloyvBXHs+q3fvxB8EqX5ecFba3RwCSjA==}

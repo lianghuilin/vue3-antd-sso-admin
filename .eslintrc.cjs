@@ -40,7 +40,7 @@ module.exports = {
       ignoreImports: false,
       ignoreDestructuring: false
     }],
-    'comma-dangle': ['error', 'never'],
+    'comma-dangle': 'off',
     'comma-spacing': ['error', {
       before: false,
       after: true
@@ -184,7 +184,7 @@ module.exports = {
       after: true
     }],
     'space-before-blocks': ['error', 'always'],
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': 'off',
     'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
     'space-unary-ops': ['error', {

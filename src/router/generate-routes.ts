@@ -233,7 +233,7 @@ export const generateLayoutRouter: GenerateLayoutRouter = contexts => {
  * 业务页面路由生成器
  */
 export const generateViewsRouter: GenerateViewsRouter = contexts => {
-  console.log('generateViewsRouter', contexts)
+  // console.log('generateViewsRouter', contexts)
   const routerComponents: Record<string, () => Promise<any>> = {}
   const replaceKeyRegex = /^.*\/src\/views(\/([^/]+\/?)+)\.(tsx|vue)$/
   // const ignoreKeyRegex = /^_.*|^\..*/

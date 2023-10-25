@@ -5,6 +5,7 @@ import PiniaUsePlugin from '@/plugin/pinia'
 import RouterPlugin from '@/router'
 
 import '@/mock'
+import 'flex.css'
 import '@/main.less'
 import '@/permission'
 

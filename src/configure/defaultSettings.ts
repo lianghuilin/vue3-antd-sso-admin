@@ -25,7 +25,7 @@ export default {
     infoColor: '#1890ff'
   },
   themeWeak: false,
-  themeMode: 'light' as	ThemeMode,
+  themeMode: 'light' as ThemeMode,
   layoutMode: 'side' as LayoutMode,
   contentWidth: 'Fluid' as ContentWidth,
   componentSize: 'middle' as ComponentSize,
