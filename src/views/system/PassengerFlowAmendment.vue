@@ -137,30 +137,60 @@
               <table style="width: 100%;height: 210px;">
                 <thead>
                   <tr>
-                    <th style="width: 80px;" />
-                    <th style="min-width: 40px;text-align: center;">
+                    <th
+                      class="column1"
+                    />
+                    <th
+                      class="column2"
+                    >
                       在园人数
                     </th>
-                    <th style="min-width: 40px;text-align: center;">
+                    <th
+                      class="column3"
+                    >
                       =
                     </th>
-                    <th style="width: 140px;text-align: center;">
+                    <th
+                      class="column4"
+                    >
                       入园人数
                     </th>
-                    <th style="min-width: 40px;text-align: center;">
+                    <th
+                      class="column5"
+                    >
                       -
                     </th>
-                    <th style="width: 140px;text-align: center;">
+                    <th
+                      class="column6"
+                    >
                       出园人数
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>当前</td>
-                    <td />
-                    <td />
-                    <td>
+                    <td class="column1">
+                      当前
+                    </td>
+                    <td class="column2">
+                      {{ formData.liveNum }}
+                    </td>
+                    <td class="column3" />
+                    <td class="column4">
+                      {{ formData.inNum }}
+                    </td>
+                    <td class="column5" />
+                    <td class="column6">
+                      {{ formData.outNum }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="column1">
+                      调整
+                    </td>
+                    <td class="column2" />
+                    <td class="column3" />
+                    <td class="column4">
                       <div
                         flex="dir:left cross:center main:justify"
                         class="operator-cell"
@@ -175,8 +205,8 @@
                         />
                       </div>
                     </td>
-                    <td />
-                    <td>
+                    <td class="column5" />
+                    <td class="column6">
                       <div
                         flex="dir:left cross:center main:justify"
                         class="operator-cell"
@@ -193,16 +223,18 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>调整后</td>
-                    <td style="text-align: center;">
+                    <td class="column1">
+                      调整后
+                    </td>
+                    <td class="column2">
                       {{ liveResult }}
                     </td>
-                    <td />
-                    <td style="text-align: center;">
+                    <td class="column3" />
+                    <td class="column4">
                       {{ inPlusResult }}
                     </td>
-                    <td />
-                    <td style="text-align: center;">
+                    <td class="column5" />
+                    <td class="column6">
                       {{ outPlusResult }}
                     </td>
                   </tr>
@@ -641,6 +673,7 @@ onMounted(async() => {
 
 .operator-cell{
   width: 160px;
+  margin: 0 auto;
 }
 
 .form-column{
@@ -649,5 +682,30 @@ onMounted(async() => {
 
 .operator-card.pinning {
   border: 1px dashed rgba(0, 0, 0, .8) !important;
+}
+
+.column1 {
+  width: 40px;
+  text-align: left;
+}
+
+.column2 {
+  width: 50px;text-align: center;
+}
+
+.column3 {
+  width: 20px;text-align: center;
+}
+
+.column4 {
+  width: 140px;text-align: center;
+}
+
+.column5 {
+  width: 20px;text-align: center;
+}
+
+.column6 {
+  width: 140px;text-align: center;
 }
 </style>
