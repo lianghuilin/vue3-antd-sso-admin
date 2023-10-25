@@ -366,6 +366,7 @@ interface AmendmentForm {
   liveNum: number;
   switch: number;
   operateType: 'quick' | 'formula';
+  quickNum: number;
   inPlusType: 'invariant' | 'increase' | 'decrease';
   outPlusType: 'invariant' | 'increase' | 'decrease';
   inPlusNum: number;
@@ -415,6 +416,7 @@ async function handleNewAmendmentModalConfirm() {
     formData.switch = 0
     formData.inPlusNum = 0
     formData.outPlusNum = 0
+    formData.quickNum = 0
     formData.inPlusType = 'invariant'
     formData.outPlusType = 'invariant'
     formData.operateType = 'quick'
@@ -433,6 +435,7 @@ const formData = reactive<AmendmentForm>({
   liveNum: 0,
   switch: 0,
   operateType: 'quick',
+  quickNum: 0,
   inPlusType: 'invariant',
   outPlusType: 'invariant',
   inPlusNum: 0,
@@ -443,7 +446,7 @@ const formData = reactive<AmendmentForm>({
 const outPlusResult = computed((): number => {
   let result = 0
   if (formData.operateType === 'quick') {
-    result = formData.outNum + formData.outPlusNum
+    result = formData.outNum + formData.quickNum
   } else {
     switch (formData.outPlusType) {
       case 'increase':
@@ -499,12 +502,13 @@ function calcPlusNum(type: 'invariant' | 'increase' | 'decrease', num: number): 
 async function handleModelConfirm() {
   try {
     formData.submitLoading = true
+    const outPlus = formData.operateType === 'quick' ? formData.quickNum : calcPlusNum(formData.outPlusType, formData.outPlusNum)
     const data = {
       gid: formData.id,
       switch: formData.switch,
       type: 0,
       inPlus: calcPlusNum(formData.inPlusType, formData.inPlusNum),
-      outPlus: calcPlusNum(formData.outPlusType, formData.outPlusNum)
+      outPlus
     }
     await updAmendment(data)
     message.success('修改配置成功！')
