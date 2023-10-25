@@ -32,17 +32,17 @@ export default defineComponent({
 
     const ALayoutMode = (props: any) => {
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>布局风格</h3>
           <div class='setting-checbox'>
             <ATooltip title='侧边菜单导航'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleLayoutMode('side') }
+                onClick={() => appStore.toggleLayoutMode('side')}
               >
-                <div class='setting-icon bg-light sidemenu-dark topmenu-light'/>
+                <div class='setting-icon bg-light sidemenu-dark topmenu-light' />
                 <div class='setting-check'>
-                  { appStore.isSideMenu ? <CheckOutlined/> : null }
+                  {appStore.isSideMenu ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -50,11 +50,11 @@ export default defineComponent({
             <ATooltip title='顶部菜单导航'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleLayoutMode('top') }
+                onClick={() => appStore.toggleLayoutMode('top')}
               >
-                <div class='setting-icon bg-light topmenu-dark'/>
+                <div class='setting-icon bg-light topmenu-dark' />
                 <div class='setting-check'>
-                  { appStore.isTopMenu ? <CheckOutlined/> : null }
+                  {appStore.isTopMenu ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -62,11 +62,11 @@ export default defineComponent({
             <ATooltip title='混合菜单导航'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleLayoutMode('mix') }
+                onClick={() => appStore.toggleLayoutMode('mix')}
               >
-                <div class='setting-icon bg-light sidemenu-dark topmenu-dark'/>
+                <div class='setting-icon bg-light sidemenu-dark topmenu-dark' />
                 <div class='setting-check'>
-                  { appStore.isMixMenu ? <CheckOutlined/> : null }
+                  {appStore.isMixMenu ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -77,12 +77,12 @@ export default defineComponent({
 
     const AThemeComponnets = (props: any) => {
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>组件风格</h3>
           <div class='setting-components'>
             <span
               class='setting-component'
-              onClick={() => appStore.toggleComponentSize('small') }
+              onClick={() => appStore.toggleComponentSize('small')}
             >
               <ATag
                 class='setting-components-tag'
@@ -94,7 +94,7 @@ export default defineComponent({
 
             <span
               class='setting-component'
-              onClick={() => appStore.toggleComponentSize('middle') }
+              onClick={() => appStore.toggleComponentSize('middle')}
             >
               <ATag
                 class='setting-components-tag'
@@ -106,7 +106,7 @@ export default defineComponent({
 
             <span
               class='setting-component'
-              onClick={() => appStore.toggleComponentSize('large') }
+              onClick={() => appStore.toggleComponentSize('large')}
             >
               <ATag
                 class='setting-components-tag'
@@ -122,17 +122,17 @@ export default defineComponent({
 
     const AThemeMode = (props: any) => {
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>主题风格</h3>
           <div class='setting-checbox'>
             <ATooltip title='亮色主题风格'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleThemeMode('light') }
+                onClick={() => appStore.toggleThemeMode('light')}
               >
-                <div class='setting-icon bg-light sidemenu-light topmenu-light'/>
+                <div class='setting-icon bg-light sidemenu-light topmenu-light' />
                 <div class='setting-check'>
-                  { appStore.themeMode === 'light' ? <CheckOutlined/> : null }
+                  {appStore.themeMode === 'light' ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -140,11 +140,11 @@ export default defineComponent({
             <ATooltip title='暗色主题风格'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleThemeMode('dark') }
+                onClick={() => appStore.toggleThemeMode('dark')}
               >
-                <div class='setting-icon bg-light sidemenu-dark topmenu-light'/>
+                <div class='setting-icon bg-light sidemenu-dark topmenu-light' />
                 <div class='setting-check'>
-                  { appStore.themeMode === 'dark' ? <CheckOutlined/> : null }
+                  {appStore.themeMode === 'dark' ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -152,11 +152,11 @@ export default defineComponent({
             <ATooltip title='暗黑主题风格'>
               <div
                 class='setting-checbox-item'
-                onClick={ () => appStore.toggleThemeMode('realDark') }
+                onClick={() => appStore.toggleThemeMode('realDark')}
               >
-                <div class='setting-icon bg-dark'/>
+                <div class='setting-icon bg-dark' />
                 <div class='setting-check'>
-                  { appStore.themeMode === 'realDark' ? <CheckOutlined/> : null }
+                  {appStore.themeMode === 'realDark' ? <CheckOutlined /> : null}
                 </div>
               </div>
             </ATooltip>
@@ -167,7 +167,7 @@ export default defineComponent({
 
     const AThemeColors = (props: any) => {
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>主题颜色</h3>
           <div class='setting-tags'>
             {
@@ -175,14 +175,14 @@ export default defineComponent({
                 <ATooltip title={name}>
                   <div
                     class='setting-tag'
-                    onClick={() => appStore.togglePrimaryColor(color) }
+                    onClick={() => appStore.togglePrimaryColor(color)}
                   >
                     <ATag
                       style='width: 100%; height: 100%; padding: 0;'
                       color={color}
                     >
                       <div class='setting-check'>
-                        { appStore.primaryColor === color ? <CheckOutlined/> : null }
+                        {appStore.primaryColor === color ? <CheckOutlined /> : null}
                       </div>
                     </ATag>
                   </div>
@@ -249,7 +249,7 @@ export default defineComponent({
       }
 
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>导航设置</h3>
           <div class='setting-navigates'>
             <AList
@@ -258,37 +258,37 @@ export default defineComponent({
             >
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AContentWidth() }
+                actions={AContentWidth()}
               >
-                <AListItemMeta title='内容区域宽度'/>
+                <AListItemMeta title='内容区域宽度' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AFixedHeader() }
+                actions={AFixedHeader()}
               >
-                <AListItemMeta title='固定顶部栏导航'/>
+                <AListItemMeta title='固定顶部栏导航' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AFixedSidebar() }
+                actions={AFixedSidebar()}
               >
-                <AListItemMeta title='固定侧边栏菜单'/>
+                <AListItemMeta title='固定侧边栏菜单' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AFixedHeaderTab() }
+                actions={AFixedHeaderTab()}
               >
-                <AListItemMeta title='固定导航栏页签'/>
+                <AListItemMeta title='固定导航栏页签' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AHideMixHeaderTab() }
+                actions={AHideMixHeaderTab()}
               >
-                <AListItemMeta title='隐藏混合导航栏页签'/>
+                <AListItemMeta title='隐藏混合导航栏页签' />
               </AListItem>
             </AList>
           </div>
@@ -329,7 +329,7 @@ export default defineComponent({
       }
 
       return (
-        <div { ...props }>
+        <div {...props}>
           <h3 class='setting-title'>其他设置</h3>
           <div class='setting-others'>
             <AList
@@ -338,23 +338,23 @@ export default defineComponent({
             >
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AThemeWeak() }
+                actions={AThemeWeak()}
               >
-                <AListItemMeta title='色弱模式'/>
+                <AListItemMeta title='色弱模式' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AMultiTab() }
+                actions={AMultiTab()}
               >
-                <AListItemMeta title='多页签模式'/>
+                <AListItemMeta title='多页签模式' />
               </AListItem>
 
               <AListItem
                 style='padding: 4px 3px; margin: 13px 0 10px;'
-                actions={ AKeepAlive() }
+                actions={AKeepAlive()}
               >
-                <AListItemMeta title='多页签缓存'/>
+                <AListItemMeta title='多页签缓存' />
               </AListItem>
             </AList>
           </div>
@@ -367,14 +367,14 @@ export default defineComponent({
       const lookSetting = () => info(`{\n  themeColor: {\n    primaryColor: '${appStore.primaryColor}',\n    warningColor: '${appStore.warningColor}',\n    successColor: '${appStore.successColor}',\n    errorColor: '${appStore.errorColor}',\n    infoColor: '${appStore.infoColor}'\n  },\n  themeWeak: ${appStore.themeWeak},\n  themeMode: '${appStore.themeMode}',\n  layoutMode: '${appStore.layoutMode}',\n  contentWidth: '${appStore.contentWidth}',\n  componentSize: '${appStore.componentSize}',\n  domTitle: '${defaultSettings.domTitle}',\n  language: '${appStore.language}',\n  multiTab: ${appStore.multiTab},\n  keepAlive: ${appStore.keepAlive},\n  fixedHeader: ${appStore.fixedHeader},\n  fixedSidebar: ${appStore.fixedSidebar},\n  fixedHeaderTab: ${appStore.fixedHeaderTab},\n  hideMixHeaderTab: ${appStore.hideMixHeaderTab}\n}`)
 
       return (
-        <div { ...props } onClick={() => lookSetting() }>
+        <div {...props} onClick={() => lookSetting()}>
           <AAlert
             type='warning'
             style={{ marginBottom: '5px', fontSize: '14px', cursor: 'pointer' }}
             message={
               <>
                 <span>配置栏应用于开发环境中预览、调试</span>
-                <br/>
+                <br />
                 <span>点击查看配置 - 游览器console界面</span>
               </>
             }
@@ -385,8 +385,8 @@ export default defineComponent({
 
     const ADrawerButton = () => {
       return !visible.value
-        ? <SettingOutlined style='color: #ffffff;'/>
-        : <CloseOutlined style='color: #ffffff;'/>
+        ? <SettingOutlined style='color: #ffffff;' />
+        : <CloseOutlined style='color: #ffffff;' />
     }
 
     if (isRender) {
@@ -404,28 +404,28 @@ export default defineComponent({
             onClose={() => { visible.value = false }}
           >
             <div class='layout-setting-drawer-content'>
-              <ALayoutMode style='margin-bottom: 22px;'/>
-              <ADivider/>
-              <AThemeComponnets/>
-              <AThemeMode/>
-              <AThemeColors style='margin-bottom: 22px;'/>
-              <ADivider/>
-              <ANavigateSettting style='margin-bottom: 22px;'/>
-              <ADivider/>
-              <AOtherSettting style='margin-bottom: 30px;'/>
-              <ADivider/>
-              <ANoticeInfo/>
+              <ALayoutMode style='margin-bottom: 22px;' />
+              <ADivider />
+              <AThemeComponnets />
+              <AThemeMode />
+              <AThemeColors style='margin-bottom: 22px;' />
+              <ADivider />
+              <ANavigateSettting style='margin-bottom: 22px;' />
+              <ADivider />
+              <AOtherSettting style='margin-bottom: 30px;' />
+              <ADivider />
+              <ANoticeInfo />
             </div>
           </ADrawer>
 
-          <Teleport to='.layout-setting-drawer .ant-drawer-content-wrapper'>
+          {/* <Teleport to='.layout-setting-drawer .ant-drawer-content-wrapper'>
             <div
               class='layout-setting-drawer-button'
               onClick={() => { visible.value = !visible.value }}
             >
               <ADrawerButton/>
             </div>
-          </Teleport>
+          </Teleport> */}
         </>
       )
     }

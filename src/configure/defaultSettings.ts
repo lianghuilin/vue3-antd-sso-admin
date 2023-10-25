@@ -18,7 +18,7 @@ import zhCN from 'ant-design-vue/es/locale/zh_CN'
  */
 export default {
   themeColor: {
-    primaryColor: '#f5222d',
+    primaryColor: '#1890ff',
     warningColor: '#faad14',
     successColor: '#52c41a',
     errorColor: '#ff4d4f',
@@ -29,7 +29,7 @@ export default {
   layoutMode: 'side' as LayoutMode,
   contentWidth: 'Fluid' as ContentWidth,
   componentSize: 'middle' as ComponentSize,
-  domTitle: 'Antd Template',
+  domTitle: '综管后台',
   language: zhCN.locale,
   multiTab: true,
   keepAlive: true,

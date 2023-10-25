@@ -23,7 +23,7 @@ const whiteRouteList = ['/login/Login', '/login/LoginCallback']
 /**
  * 路由处理
  */
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
   const localToken = localStorage.getItem('SSO-TOKEN')
@@ -69,8 +69,8 @@ router.beforeEach(async(to, from, next) => {
           Notification.error({
             duration: 0.8,
             message: '系统通知',
-            description: '获取用户信息失败，请重新登录!'
-            // onClose: () => userStore.logout().then(resolve)
+            description: '获取用户信息失败，请重新登录!',
+            onClose: () => userStore.logout()
           })
         })
 
@@ -86,10 +86,10 @@ router.beforeEach(async(to, from, next) => {
 
   if (!to || !to.name) {
     if (!urlTicket) {
-      alert('go loginRoutePath')
+      // alert('go loginRoutePath')
       return next({ path: loginRoutePath })
     } else {
-      alert('go loginCallbackRoutePath')
+      // alert('go loginCallbackRoutePath')
       return next({ path: loginCallbackRoutePath, query: { token: urlTicket } })
     }
   }

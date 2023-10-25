@@ -7,7 +7,7 @@ const fetch = rest.post
 const request = util.resolve(api.getUserMenu)
 
 util.worker.use(
-  fetch(request, async(req, res, ctx) => {
+  fetch(request, async (req, res, ctx) => {
     const body = await util.body(req)
     const query = await util.query(req)
     const params = await util.params(req)

@@ -12,7 +12,7 @@ baseRoutes.push(
   {
     path: '/index',
     name: 'index',
-    redirect: '/system/OrganizeManage'
+    redirect: '/system/PassengerFlowAmendment'
   },
   // {
   //   path: '/loginCallback',

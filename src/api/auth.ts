@@ -49,7 +49,7 @@ export function logout<T = any, D = any>(data: D) {
   return request<T, D>({
     url: api.logout,
     method: 'get',
-    data: data
+    params: data
   })
 }
 

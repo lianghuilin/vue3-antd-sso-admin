@@ -5,7 +5,7 @@ import 'ant-design-vue/es/form/style/index.less'
 import 'ant-design-vue/es/menu/style/index.less'
 
 import * as VueTypes from 'vue-types'
-import { SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { LogoutOutlined } from '@ant-design/icons-vue'
 import { InputPassword as AInputPassword } from 'ant-design-vue/es/input'
 import AMenu, { MenuItem as AMenuItem } from 'ant-design-vue/es/menu'
 import AForm, { FormItem as AFormItem } from 'ant-design-vue/es/form'
@@ -34,7 +34,7 @@ export default defineComponent({
         AModal.confirm({
           title: '提示',
           content: '真的要注销登录吗 ?',
-          onOk: () => { userStore.logout().then(() => window.location.reload()) }
+          onOk: () => { userStore.logout() }
         })
       }
 
@@ -44,22 +44,12 @@ export default defineComponent({
             class='layout-avatar-dropdown'
             style='min-width: 120px'
           >
-            <AMenuItem key='1'>
-              <a
-                href='javascript:void(0);'
-                onClick={() => { visible.value = true } }
-              >
-                <SettingOutlined style='margin-right: 10px'/>
-                <span>修改密码</span>
-              </a>
-            </AMenuItem>
-
             <AMenuItem key='2'>
               <a
                 href='javascript:void(0);'
                 onClick={doLogout}
               >
-                <LogoutOutlined style='margin-right: 10px'/>
+                <LogoutOutlined style='margin-right: 10px' />
                 <span>退出登录</span>
               </a>
             </AMenuItem>
@@ -116,7 +106,7 @@ export default defineComponent({
           <>
             <AButton
               key='back'
-              onClick={ () => { visible.value = false } }
+              onClick={() => { visible.value = false }}
             >
               <span>取消</span>
             </AButton>
@@ -124,7 +114,7 @@ export default defineComponent({
             <AButton
               key='submit'
               type='primary'
-              onClick={ () => { doForgetPassword() }}
+              onClick={() => { doForgetPassword() }}
             >
               <span>提交</span>
             </AButton>
@@ -132,7 +122,7 @@ export default defineComponent({
         )
       }
 
-      const doForgetPassword = async() => {
+      const doForgetPassword = async () => {
         try {
           const params = {
             userNo: userStore.userNo,
@@ -217,7 +207,7 @@ export default defineComponent({
           cursor: 'pointer'
         }}
       >
-        <ADropdown overlay={ ADropdownOverlay() }>
+        <ADropdown overlay={ADropdownOverlay()}>
           <div
             class='layout-avatar-wrapper'
             style={{
@@ -249,11 +239,11 @@ export default defineComponent({
                 overflow: 'hidden'
               }}
             >
-              { nickname.value }
+              {nickname.value}
             </span>
           </div>
         </ADropdown>
-        <APasswordModal/>
+        <APasswordModal />
       </div>
     )
   }

@@ -149,7 +149,6 @@ export default defineStore(
           token: token.value,
         })
         .then(res => {
-          alert(res)
           window.location.href = res + ''
         })
     }

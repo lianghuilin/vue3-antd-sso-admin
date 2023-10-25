@@ -134,10 +134,10 @@ axios.interceptors.response.use(async response => {
  */
 export { request, qs }
 
-export const submitPost = function (url, data) {
+export const submitPost = function (url: string, data: any) {
   return axios.postForm(url, data)
 }
 
-export const submitPut = function (url, data) {
+export const submitPut = function (url: string, data: any) {
   return axios.putForm(url, data)
 }

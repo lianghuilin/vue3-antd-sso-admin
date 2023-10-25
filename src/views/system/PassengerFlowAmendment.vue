@@ -123,7 +123,7 @@
                 </div>
                 <div style="margin-top: 10px">
                   <AInput
-                    v-model:value.number="formData.outPlusNum"
+                    v-model:value.number="formData.quickNum"
                     style="width: 150px;margin-right: 8px;"
                   /><span>人</span>
                 </div>
@@ -271,6 +271,16 @@
     </template>
   </Modal>
 
+  <div
+    v-show="pageLoading"
+    class="page-mask"
+    flex="dir:top main:center cross:center"
+  >
+    <Spin
+      :spinning="pageLoading"
+      tip="加载中..."
+    />
+  </div>
   <div class="page-container">
     <template
       v-if="amendmentDataList.length > 0"
@@ -285,7 +295,6 @@
           <AButton
             type="dashed"
             size="small"
-            :loading="data.queryLoading"
             @click="handleEditBtn(data)"
           >
             编辑
@@ -323,7 +332,7 @@
 import { ref, onMounted, reactive, watchEffect } from 'vue'
 import { PlusOutlined, PushpinOutlined, LoginOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { getAmendmentList, getAmendmentGroup, getAmendmentInout, updAmendment } from '../../api/passengerFlowAmendment'
-import { Modal, message } from 'ant-design-vue'
+import { Modal, message, Spin } from 'ant-design-vue'
 import type { SelectProps } from 'ant-design-vue'
 
 defineOptions({ name: 'PassengerFlowAmendment' })
@@ -342,7 +351,6 @@ interface AmendmentConfigItem {
 
 type AmendmentDataItem = AmendmentConfigItem & {
   name: string;
-  queryLoading: boolean;
 }
 
 interface AmendmentGroupItem {
@@ -380,6 +388,7 @@ interface NewAmendmentConfig {
   gid: any;
 }
 
+const pageLoading = ref<boolean>(false)
 const amendmentConfigList = ref<AmendmentConfigItem[]>([])
 const groupNameMap = reactive<GroupAmendmentMap>({})
 const amendmentDataList = ref<AmendmentDataItem[]>([])
@@ -536,7 +545,7 @@ function numTransformType(num: number): 'invariant' | 'increase' | 'decrease' {
 }
 
 async function handleEditBtn(data: AmendmentDataItem) {
-  data.queryLoading = true
+  pageLoading.value = true
   try {
     const { total } = await getAmendmentInout(data.gid + '')
     formData.id = data.gid
@@ -549,20 +558,23 @@ async function handleEditBtn(data: AmendmentDataItem) {
     formData.inPlusType = numTransformType(data.inPlus)
     formData.outPlusType = numTransformType(data.outPlus)
     formData.operateType = data.inPlus === 0 && data.outPlus > 0 ? 'quick' : 'formula'
+    if (formData.operateType === 'quick') {
+      formData.quickNum = Math.abs(data.outPlus)
+    }
     modalTitle.value = `编辑【${data.name}】客流优化`
-
     modalOpen.value = true
-    data.queryLoading = false
+    pageLoading.value = false
   } catch (error) {
+    pageLoading.value = false
     message.error('获取出入园数据出错！')
   }
 }
 
 async function pageLoad() {
+  pageLoading.value = true
   try {
     const { list } = await getAmendmentList(listParams)
     amendmentConfigList.value = list
-    console.log('amendmentConfigList.value', amendmentConfigList.value)
   } catch (error) {
     console.error(error)
     return Promise.reject()
@@ -583,7 +595,9 @@ async function pageLoad() {
     return Promise.reject()
   }
 
-  return Promise.resolve()
+  return Promise.resolve().then(() => {
+    pageLoading.value = false
+  })
 }
 
 watchEffect(() => {
@@ -593,8 +607,7 @@ watchEffect(() => {
       const name = groupNameMap[`id-${gid}`] || ''
       return {
         ...item,
-        name,
-        queryLoading: false
+        name
       }
     })
   }
@@ -632,15 +645,16 @@ onMounted(async() => {
 
   .config-item.add:hover {
     cursor: pointer;
-    border: 1px dashed rgba(0, 0, 0, .8);
+    border: 1px solid #1890ff;
 
     .icon {
-      border: 1px dashed rgba(0, 0, 0, .8);
+      border: 1px solid #1890ff;
     }
   }
 
 }
 .operator-form{
+  padding-top: 20px;
   margin-top: 10px;
   position: relative;
 }
@@ -685,7 +699,7 @@ onMounted(async() => {
 }
 
 .operator-card.pinning {
-  border: 1px dashed rgba(0, 0, 0, .8) !important;
+  border: 1px solid #1890ff;
 }
 
 .column1 {
@@ -711,5 +725,14 @@ onMounted(async() => {
 
 .column6 {
   width: 140px;text-align: center;
+}
+
+.page-mask{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 20;
 }
 </style>
